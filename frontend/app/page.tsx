@@ -1,9 +1,9 @@
-import FileUpload from "./components/FileUpload";
+import FileUpload from "@/app/components/FileUpload";
 
 export default function Home() {
   return (
-    <main className="flex flex-col items-center justify-center min-h-screen p-4">
-      <h1 className="text-2xl font-bold">Upload .osm File</h1>
+    <main className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-6">
+      <h1 className="text-3xl font-bold text-gray-800 mb-6">Next.js File Upload</h1>
       <FileUpload />
     </main>
   );

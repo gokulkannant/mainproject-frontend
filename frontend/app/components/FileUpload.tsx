@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Upload, Loader } from "lucide-react"; // Icons for better UI
 
 export default function FileUpload() {
   const [file, setFile] = useState<File | null>(null);
@@ -34,27 +35,40 @@ export default function FileUpload() {
       if (!response.ok) throw new Error("Upload failed");
 
       const data = await response.json();
-      setMessage(`File uploaded successfully: ${data.filePath}`);
+      setMessage(`✅ File uploaded: ${data.filePath}`);
     } catch (error) {
       console.error("Upload error:", error);
-      setMessage("Upload failed!");
+      setMessage("❌ Upload failed!");
     } finally {
       setUploading(false);
     }
   };
 
   return (
-    <div className="flex flex-col items-center gap-4 p-6 border rounded-lg">
-      <h2 className="text-xl font-bold">Upload a File</h2>
-      <input type="file" onChange={handleFileChange} className="border p-2 rounded" />
+    <div className="bg-white shadow-lg rounded-lg p-6 w-96 mx-auto text-center">
+      <h2 className="text-2xl font-semibold text-gray-700 mb-4">Upload a File</h2>
+      
+      <label className="cursor-pointer bg-gray-100 border-2 border-dashed border-gray-300 rounded-lg p-4 flex flex-col items-center">
+        <Upload className="h-8 w-8 text-gray-500 mb-2" />
+        <span className="text-gray-600">Click to select a file</span>
+        <input type="file" onChange={handleFileChange} className="hidden" />
+      </label>
+
+      {file && <p className="mt-2 text-gray-600">{file.name}</p>}
+
       <button
         onClick={handleUpload}
         disabled={uploading}
-        className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 disabled:bg-gray-400"
+        className={`mt-4 px-5 py-2 text-white rounded-lg transition ${
+          uploading
+            ? "bg-gray-400 cursor-not-allowed"
+            : "bg-blue-600 hover:bg-blue-700"
+        }`}
       >
-        {uploading ? "Uploading..." : "Upload"}
+        {uploading ? <Loader className="animate-spin h-5 w-5" /> : "Upload"}
       </button>
-      {message && <p className="text-sm text-green-600">{message}</p>}
+
+      {message && <p className="mt-3 text-sm font-medium text-green-600">{message}</p>}
     </div>
   );
 }
