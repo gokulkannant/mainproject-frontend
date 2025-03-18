@@ -13,7 +13,7 @@ This is a **Next.js** frontend project that allows users to upload files. The pr
 
 1. **Clone the Repository**
    ```bash
-   git clone https://github.com/your-username/mainproject-frontend.git
+   git clone https://github.com/gokulkannant/mainproject-frontend.git
    cd mainproject-frontend/frontend
    ```
 
